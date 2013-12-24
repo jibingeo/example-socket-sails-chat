@@ -1,0 +1,31 @@
+<h1>Chat</h1>
+<input type='text' placeholder="type message" id='text' />
+<button id='send'>
+	Send
+</button>
+<div id="msg">
+	
+</div>
+<script>
+	function templateMessage(message) {
+		return "<div>"+((message.message)?message.message:"")+"</div>";
+	}
+	$(function() {
+		var socket=io.connect();
+		socket.on("connect",function() {
+			this.get("/messages",function(data) {
+				$.each(data,function(index,message) {
+					$("#msg").append(templateMessage(message));		
+				});
+			});
+		});
+		socket.on("message",function(msg) {
+			$("#msg").append(templateMessage(msg.data));
+		});
+		$("#send").click(function() {
+			socket.post("/messages/create",{message:$("#text").val()},function(res) {
+				$("#text").val("");
+			});
+		});
+	});
+</script>
