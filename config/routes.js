@@ -32,8 +32,27 @@ module.exports.routes = {
   // located at `views/home/index.ejs`
   // 
   // (This would also work if you had a file at: `/views/home.ejs`)
-  '/': {
+  '/chat': {
     view: 'main/chat'
+  },
+  '/': {
+    	controller: 'MainController',
+  },
+  '/login': {
+   	controller: 'UsersController',
+    action: 'login'
+  },
+  '/logout': {
+   	controller: 'UsersController',
+    action: 'logout'
+  },
+   '/signup': {
+   	controller: 'UsersController',
+    action: 'signup'
+  },
+  '/chat': {
+   	controller: 'MainController',
+    action: 'chat'
   }
 
   /*

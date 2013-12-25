@@ -1,14 +1,18 @@
 <h1>Chat</h1>
-<input type='text' placeholder="type message" id='text' />
-<button id='send'>
-	Send
-</button>
+<h3>Welcome <%= uname %></h3>
+<button id='logout'>logout</button><br/>
+<form  id='sendForm'>
+	<input type='text' placeholder="type message" id='text' />
+	<button>
+		Send
+	</button>
+</form>
 <div id="msg">
 	
 </div>
 <script>
 	function templateMessage(message) {
-		return "<div>"+((message.message)?message.message:"")+"</div>";
+		return "<div><b>"+((message.uname)?message.uname:"")+"</b> : "+((message.message)?message.message:"")+"</div>";
 	}
 	$(function() {
 		var socket=io.connect();
@@ -22,9 +26,18 @@
 		socket.on("message",function(msg) {
 			$("#msg").append(templateMessage(msg.data));
 		});
-		$("#send").click(function() {
-			socket.post("/messages/create",{message:$("#text").val()},function(res) {
-				$("#text").val("");
+		$("#sendForm").submit(function() {
+			var text=$("#text").val();
+			if(text!="") {
+				socket.post("/messages/create",{message:text},function(res) {
+					$("#text").val("");
+				});
+			}
+			event.preventDefault();
+		});
+		$("#logout").click(function() {
+			socket.get("/logout",function(res) {
+				window.location = "/";
 			});
 		});
 	});

@@ -1,5 +1,5 @@
 /**
- * Messages
+ * Policy
  *
  * @module      :: Model
  * @description :: A short summary of how this model works and what it represents.
@@ -13,8 +13,7 @@ module.exports = {
   	/* e.g.
   	nickname: 'string'
   	*/
-    userId: 'int',
-    message: 'string'
+    
   }
 
 };

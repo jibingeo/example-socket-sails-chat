@@ -1,0 +1,51 @@
+<h2>Login</h2>
+<form id='loginForm'>
+	<lable>User Name</label> <br/>
+	<input type="text" name="uname" placeholder="name" /> <br/>
+	<lable>Password</label> <br/>
+	<input type="password" name="passwd" placeholder="password" /> <br/>
+	<button >Login</button> 
+</form>
+<h2>Signup</h2>
+<form id='signupForm'>
+	<lable>User Name</label> <br/>
+	<input type="text" name="uname" placeholder="name" /> <br/>
+	<lable>Password</label> <br/>
+	<input type="password" name="passwd" placeholder="password" /> <br/>
+	<lable>Retype Passwd</label> <br/>
+	<input type="password" name="rpasswd" placeholder="password" /> <br/>
+	<button >Signup</button>
+</form>
+<script>
+	$(function() {
+		$("#loginForm").submit(function(event) {
+			var formData=new Object();
+			$.each($(this).serializeArray(),function(index,element) {
+				formData[element["name"]]=element["value"]
+			});
+			$.get("/login",formData,function(data) {
+				window.location = "/chat";
+			}).fail(function(res){
+				alert("invalid user");
+			});
+			event.preventDefault();
+		});
+		$("#signupForm").submit(function(event) {
+			var formData=new Object();
+			$.each($(this).serializeArray(),function(index,element) {
+				formData[element["name"]]=element["value"]
+			});
+			if(formData.passwd==formData.rpasswd) {
+				delete formData.repasswd;
+				$.get("/signup",formData,function(data) {
+					window.location = "/chat";
+				}).fail(function(res){
+					alert("user registration faild");
+				});
+			}
+			else
+				alert("password doesn't matvh");
+			event.preventDefault();
+		});
+	});
+</script>
