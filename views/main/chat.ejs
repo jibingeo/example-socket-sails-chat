@@ -12,7 +12,10 @@
 </div>
 <script>
 	function templateMessage(message) {
-		return "<div><b>"+((message.uname)?message.uname:"")+"</b> : "+((message.message)?message.message:"")+"</div>";
+		var uname=(message.uname)?message.uname:"";
+		var text=(message.message)?message.message:"";
+		var time= new Date((message.createdAt)?message.createdAt:"").toLocaleString();
+		return "<div><b>"+uname+" ("+time+") </b> : "+text+"</div>";
 	}
 	$(function() {
 		var socket=io.connect();
