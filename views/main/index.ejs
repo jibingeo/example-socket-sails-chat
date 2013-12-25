@@ -1,21 +1,27 @@
-<h2>Login</h2>
-<form id='loginForm'>
-	<lable>User Name</label> <br/>
-	<input type="text" name="uname" placeholder="name" /> <br/>
-	<lable>Password</label> <br/>
-	<input type="password" name="passwd" placeholder="password" /> <br/>
-	<button >Login</button> 
-</form>
-<h2>Signup</h2>
-<form id='signupForm'>
-	<lable>User Name</label> <br/>
-	<input type="text" name="uname" placeholder="name" /> <br/>
-	<lable>Password</label> <br/>
-	<input type="password" name="passwd" placeholder="password" /> <br/>
-	<lable>Retype Passwd</label> <br/>
-	<input type="password" name="rpasswd" placeholder="password" /> <br/>
-	<button >Signup</button>
-</form>
+<div class="form">
+	<div class="block left">
+		<h2>Login</h2>
+		<form id='loginForm'>
+			<label>User Name</label> <br/>
+			<input type="text" name="uname" placeholder="name" /> <br/>
+			<label>Password</label> <br/>
+			<input type="password" name="passwd" placeholder="password" /> <br/>
+			<button >Login</button> 
+		</form>
+	</div>
+	<div class="block right">
+		<h2>Signup</h2>
+		<form id='signupForm'>
+			<label>User Name</label> <br/>
+			<input type="text" name="uname" placeholder="name" /> <br/>
+			<label>Password</label> <br/>
+			<input type="password" name="passwd" placeholder="password" /> <br/>
+			<label>Retype Passwd</label> <br/>
+			<input type="password" name="rpasswd" placeholder="retype password" /> <br/>
+			<button >Signup</button>
+		</form>
+	</div>
+</div>
 <script>
 	$(function() {
 		$("#loginForm").submit(function(event) {

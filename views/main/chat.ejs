@@ -1,16 +1,20 @@
 <script type="text/javascript" src="/js/underscore.js"></script>
 <script type="text/javascript" src="/js/backbone.js"></script>
-<h1>Chat</h1>
-<h3>Welcome <%= uname %></h3>
-<button id='logout'>logout</button><br/>
-<form  id='sendForm'>
-	<input type='text' placeholder="type message" id='text' />
-	<button>
-		Send
-	</button>
-</form>
-<div id="msg">
+<div class="form">
+	<h1>
+		Chat
+		<button id='logout'>logout</button><br/>
+	</h1>
+	<h3>Welcome <%= uname %></h3>
+	<form  id='sendForm'>
+		<input type='text' placeholder="type message" id='text' />
+		<button>
+			Send
+		</button>
+	</form>
+	<div id="msg">
 	
+	</div>
 </div>
 <script>
 	var MessageModel = Backbone.Model.extend({
@@ -46,13 +50,13 @@
 			this.collection.on('add', this.render, this);
 			this.render();
 		},
-		template: _.template("<div><b>{{ uname }} ({{ createdAt }}) : </b>{{ message }}</div>"),
+		template: _.template("<div><div class='header' ><div class='time'>({{ createdAt }})</div><div class='uname'>{{ uname }} </div></div><div class='text'>{{ message }}</div></div>"),
 		render: function () {
 			this.$el.html("");
 			this.collection.each(function(msg){
 				var data=msg.toJSON();
 				data.createdAt = new Date(data.createdAt).toLocaleString();
-				this.$el.append(this.template(data));
+				this.$el.prepend(this.template(data));
 			}, this)
 		}
 	});
