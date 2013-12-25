@@ -1,3 +1,5 @@
+<script type="text/javascript" src="/js/underscore.js"></script>
+<script type="text/javascript" src="/js/backbone.js"></script>
 <h1>Chat</h1>
 <h3>Welcome <%= uname %></h3>
 <button id='logout'>logout</button><br/>
@@ -11,32 +13,65 @@
 	
 </div>
 <script>
-	function templateMessage(message) {
-		return "<div><b>"+((message.uname)?message.uname:"")+"</b> : "+((message.message)?message.message:"")+"</div>";
-	}
-	$(function() {
-		var socket=io.connect();
-		socket.on("connect",function() {
-			this.get("/messages",function(data) {
-				$.each(data,function(index,message) {
-					$("#msg").append(templateMessage(message));		
+	var MessageModel = Backbone.Model.extend({
+        urlRoot: '/messages',
+    });
+ 
+    var MessageCollection = Backbone.Collection.extend({
+        url: '/messages',
+        model: MessageModel,
+		socket: null,
+		sync: function(method, model, options){
+			this.socket=io.connect();
+			this.socket.on("connect",function() {
+				this.get("/messages",function(data) {
+					model.set(data);
 				});
 			});
-		});
-		socket.on("message",function(msg) {
-			$("#msg").append(templateMessage(msg.data));
-		});
+			this.socket.on("message",function(msg) {
+				console.log(msg);
+				var m = msg.verb;
+				if (m === "create") {
+					model.add(msg.data);
+				}
+			});
+		}
+    });
+    _.templateSettings = {
+		interpolate : /\{\{(.+?)\}\}/g
+	};
+    var MessagesView = Backbone.View.extend({
+		el: '#msg',
+		initialize: function () {
+			this.collection.on('add', this.render, this);
+			this.render();
+		},
+		template: _.template("<div><b>{{ uname }}: </b>{{ message }}</div>"),
+		render: function () {
+			this.$el.html("");
+			this.collection.each(function(msg){
+				this.$el.append(this.template(msg.toJSON()));
+			}, this)
+		}
+	});
+	
+    var messages = new MessageCollection();
+    var mView = new MessagesView({collection: messages});
+   	
+   	$(function() {
+	    messages.fetch();
+		$("#text").focus();
 		$("#sendForm").submit(function() {
 			var text=$("#text").val();
 			if(text!="") {
-				socket.post("/messages/create",{message:text},function(res) {
-					$("#text").val("");
-				});
+				messages.create({message: text}, {wait: true});
 			}
+			$("#text").val("");
+			$("#text").focus();
 			event.preventDefault();
 		});
 		$("#logout").click(function() {
-			socket.get("/logout",function(res) {
+			$.get("/logout",function(res) {
 				window.location = "/";
 			});
 		});

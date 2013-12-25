@@ -28,6 +28,7 @@
 			}).fail(function(res){
 				alert("invalid user");
 			});
+			this.reset();
 			event.preventDefault();
 		});
 		$("#signupForm").submit(function(event) {
@@ -45,6 +46,7 @@
 			}
 			else
 				alert("password doesn't matvh");
+			this.reset();
 			event.preventDefault();
 		});
 	});
