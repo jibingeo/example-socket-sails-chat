@@ -50,7 +50,9 @@
 		render: function () {
 			this.$el.html("");
 			this.collection.each(function(msg){
-				this.$el.append(this.template(msg.toJSON()));
+				var data=msg.toJSON();
+				data.createdAt = new Date(data.createdAt).toLocaleString();
+				this.$el.append(this.template(data));
 			}, this)
 		}
 	});
