@@ -46,7 +46,7 @@
 			this.collection.on('add', this.render, this);
 			this.render();
 		},
-		template: _.template("<div><b>{{ uname }}: </b>{{ message }}</div>"),
+		template: _.template("<div><b>{{ uname }} ({{ createdAt }}) : </b>{{ message }}</div>"),
 		render: function () {
 			this.$el.html("");
 			this.collection.each(function(msg){
