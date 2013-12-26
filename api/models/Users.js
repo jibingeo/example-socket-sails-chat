@@ -13,8 +13,15 @@ module.exports = {
   	/* e.g.
   	nickname: 'string'
   	*/
-    uname: 'string',
-	passwd: 'string'
+    uname: {
+      type: 'string',
+      required: true
+    },
+    
+	passwd: {
+      type: 'string',
+      required: true
+    }
   }
 
 };

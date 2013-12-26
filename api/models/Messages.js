@@ -13,8 +13,19 @@ module.exports = {
   	/* e.g.
   	nickname: 'string'
   	*/
-    userId: 'int',
-    message: 'string'
+    uid: {
+      type: 'integer',
+      required: true
+    },
+    uname:{
+    	type: 'string',
+		required: true
+    },
+    message: {
+      type: 'string',
+      required: true,
+      defaultsTo:""
+    }
   }
 
 };
