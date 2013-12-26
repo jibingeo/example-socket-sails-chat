@@ -1,0 +1,4 @@
+Sials.js is javascript framework for nodejs to design realitime webapps. It is  designed to mimic the MVC pattern over realtime channel. In sials.js, express is used for url routing and socket.io is used for realtime communication between browser and server. 
+Nettuts+ is a online tutorial for web development. There are lots of tutorial about latest webtechnologies. The sails.js tutirial (http://net.tutsplus.com/tutorials/javascript-ajax/working-with-data-in-sails-js) is very helpfull tutorial for developeres to develope  realtime application. 
+In this project sails.js used as the realtime channel. Sails.js uses websoket for realtime communication and  Backbone.js is used for frontend databinding. Backnone.js is frontend MVC framework that helps to develope the frontend application easly. 
+
