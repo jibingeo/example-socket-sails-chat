@@ -67,14 +67,14 @@
    	$(function() {
 	    messages.fetch();
 		$("#text").focus();
-		$("#sendForm").submit(function() {
+		$("#sendForm").submit(function(e) {
+			e.preventDefault();
 			var text=$("#text").val();
 			if(text!="") {
 				messages.create({message: text}, {wait: true});
 			}
 			$("#text").val("");
 			$("#text").focus();
-			event.preventDefault();
 		});
 		$("#logout").click(function() {
 			$.get("/logout",function(res) {
